@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include <QDockWidget>
-#include <QTextBrowser>
 #include <QPlainTextEdit>
+#include <QString>
 #include "removenodesbytypewidget.h"
 #include "ifcbrowser.h"
 #include "node.h"
@@ -21,6 +21,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+
+    void UpdateModification(const QString&str);
+
+
 private slots:
      void on_actionOpen_IFC_file_triggered();
 
@@ -28,8 +32,12 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QDockWidget* dock_widget;
+    QDockWidget* dock_widget, *modification_dock;
     IFCBrowser* text_browser;
+    QPlainTextEdit * modification_browser;
+
+    //IFC4 documentation browser
+
 
     //dialogs
     RemoveNodesByTypeWidget* remove_nodes_by_type_widget;

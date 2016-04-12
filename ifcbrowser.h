@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QPlainTextEdit>
 #include <QString>
+#include <QTimer>
+#include <vector>
 
 /**
  * @brief The IFCBrowser class
@@ -20,20 +22,36 @@ public:
      */
     IFCBrowser(QWidget* parent=0);
 
+    /**
+     * @brief SetText  set the text from the current IFCFile, load
+     * @param text
+     */
+    void SetText();
 
-    void ResetText();
+
+
 private slots:
     /**
      * @brief s_selection_changed
      */
     void on_selection_changed();
+
+
+    void on_time_out();
 protected:
     void keyPressEvent(QKeyEvent *);
 
 private:
     //private data
     BrowserMode my_current_mode;
-    QString my_backup_text;
+
+
+
+
+    std::vector<QString> my_full_text;
+    int last_line;
+    bool read_end;
+    QTimer my_timer;
 
 };
 

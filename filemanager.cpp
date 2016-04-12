@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "nodesmanager.h"
+#include "progressbarmanager.h"
 #include "filemanager.h"
 
 
@@ -46,6 +47,9 @@ FileManager::FileManager()
 
 int  FileManager::LoadIfcFile(const QString &path)
 {
+
+    ProgressBarManager::Show();
+    ProgressBarManager::SetText("Parsing ifc file");
     //compteur de lignes
     int cpt =0;
     //open the file

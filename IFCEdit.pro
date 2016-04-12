@@ -19,7 +19,9 @@ SOURCES += main.cpp\
     filemanager.cpp \
     removenodesbytypewidget.cpp \
     ifcbrowser.cpp \
-    ifceditmanager.cpp
+    ifceditmanager.cpp \
+    progressbarmanager.cpp \
+    modification.cpp
 
 HEADERS  += mainwindow.h \
     node.h \
@@ -27,7 +29,10 @@ HEADERS  += mainwindow.h \
     filemanager.h \
     removenodesbytypewidget.h \
     ifcbrowser.h \
-    ifceditmanager.h
+    ifceditmanager.h \
+    progressbarmanager.h \
+    modification.h
 
 FORMS    += mainwindow.ui \
-    removenodesbytypewidget.ui
+    removenodesbytypewidget.ui \
+    find.ui

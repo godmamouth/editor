@@ -84,6 +84,12 @@ public:
 
 
 
+    /**
+     * @brief Duplicate
+     * @param ifc_id
+     * @return
+     */
+    static Node* Duplicate(int ifc_id);
 
 private:
     /**

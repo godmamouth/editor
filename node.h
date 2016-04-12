@@ -29,6 +29,13 @@ public:
      */
     Node(int ifc_id,QString node_name,QString text,const std::vector<int>& relations);
 
+
+    /**
+     * @brief Copy constructor
+     * @param node
+     */
+    Node(const Node&node);
+
     ~Node();
 
 

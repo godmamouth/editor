@@ -6,24 +6,29 @@
 IFCBrowser::IFCBrowser(QWidget* parent):
     QPlainTextEdit(parent),
     my_current_mode(normal),
-    my_backup_text()
+    my_full_text(),
+    last_line(0),
+    read_end(true),
+    my_timer()
+
+
 
 {
     connect(this,SIGNAL(selectionChanged()),this,SLOT(on_selection_changed()));
+    connect(&my_timer,SIGNAL(timeout()),this,SLOT(on_time_out()));
 }
 
 
-void IFCBrowser::ResetText()
+
+
+void IFCBrowser::SetText()
 {
-    std::vector<QString> display_text = NodesManager::GetText();
+    my_full_text = NodesManager::GetText();
     this->clear();
-    for(int i=0;i<display_text.size();i++)
-        this->appendPlainText(display_text[i]);
-
-
+    read_end = false;
+    last_line = 0;
+    my_timer.start(1);
 }
-
-
 
 
 void IFCBrowser::on_selection_changed()
@@ -60,13 +65,33 @@ void IFCBrowser::on_selection_changed()
 
 }
 
+void IFCBrowser::on_time_out()
+{
+    //add more line
+    int i;
+    for(i=last_line+1;i<my_full_text.size() && i<last_line+200;i++)
+    {
+        this->appendPlainText(my_full_text[i]);
+    }
 
+    //test si il reste des lignes à lire
+    if(i<my_full_text.size())
+    {
+         my_timer.start(1);
+         last_line= i;
+
+    }
+    else
+    {
+        my_timer.stop();
+    }
+}
 
 void IFCBrowser::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Tab)
     {
-        ResetText();
+        SetText();
     }
 }
 

@@ -35,20 +35,21 @@
     </property>
     <addaction name="actionOpen_IFC_file"/>
    </widget>
-   <widget class="QMenu" name="menuGraph">
-    <property name="title">
-     <string>Graph</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="menuModify">
     <property name="title">
      <string>Modify</string>
     </property>
     <addaction name="actionRemove_nodes"/>
    </widget>
+   <widget class="QMenu" name="menuStatistics">
+    <property name="title">
+     <string>Statistics</string>
+    </property>
+    <addaction name="actionDiagnostics"/>
+   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuGraph"/>
    <addaction name="menuModify"/>
+   <addaction name="menuStatistics"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -72,6 +73,11 @@
   <action name="actionRemove_nodes">
    <property name="text">
     <string>Remove nodes</string>
+   </property>
+  </action>
+  <action name="actionDiagnostics">
+   <property name="text">
+    <string>Diagnostics</string>
    </property>
   </action>
  </widget>

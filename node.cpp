@@ -13,6 +13,18 @@ Node::Node(int ifc_id,QString node_name,QString text,const std::vector<int>& rel
 
 }
 
+Node::Node(const Node&node):
+    my_id(node.my_id),
+    link_to(node.link_to),
+    linked_by(node.linked_by),
+    my_node_name(node.my_node_name),
+    my_text(node.my_text),
+    my_relations(node.my_relations)
+{
+
+}
+
+
 Node::~Node()
 {
 

@@ -1,6 +1,6 @@
 #include <QStringList>
 #include <iostream>
-
+#include "ifceditmanager.h"
 #include "nodesmanager.h"
 
 
@@ -146,6 +146,9 @@ int NodesManager::RemoveNodeByID(int node_id)
 
 int NodesManager::RemoveNodeByIFCClass(QString node_class)
 {
+    //create a new stage in the ifceditmanager
+    IFCEditManager::AdvanceStage();
+
 
     QStack<int> remove_stack;
     //1. Find the nodes to delete
@@ -173,6 +176,20 @@ Node* NodesManager::GetNodeByIFCId(int ifc_id)
 bool NodesManager::IsIdValid(int ifc_id)
 {
     return my_only_instance->my_nodes.contains(ifc_id);
+}
+
+Node* NodesManager::Duplicate(int ifc_id)
+{
+    if(IsIdValid(ifc_id))
+    {
+        Node * node =GetNodeByIFCId(ifc_id);
+        Node * n2 = new Node(*node);
+        return n2;
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
 
@@ -214,6 +231,8 @@ int NodesManager::DeleteStack(QStack<int> &stack)
         }
     }
 
+
+    IFCEditManager::PrintCurrentStageModifications();
     //return the number of deleted nodes
     return n;
 }
@@ -221,8 +240,13 @@ int NodesManager::DeleteStack(QStack<int> &stack)
 
 std::vector<int> NodesManager::DeleteNode(int ifc_id)
 {
-    //prepare the node to be deleted
+
     Node *node =  my_nodes[ifc_id];
+
+    //record the node prior delete
+    IFCEditManager::RecordNode(ifc_id,Modification::Deleted,node->GetNodeName());
+
+    //prepare the node to be deleted
     std::vector<int> modified = node->PrepareDeletion();
 
     //erase the node of the hash
